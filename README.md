@@ -7,7 +7,7 @@ the correct output data that each figure requires.
 
 ### Code Example
 
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+*Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.*
 
 **How the Interface will reproduce journal figures:**
 1) Prompt user on figure they want to reproduce
@@ -20,23 +20,23 @@ The plots created are intended to look precisely like the figures from the journ
 
 ### Motivation
 
-This project gives the readers of _____ access to the models and data analysed in the article as well as an easy to follow interface in which they can choose the specific figure they want to reproduce.  
+This project gives the readers of ____ access to the models and data analysed in the article as well as an easy to follow interface in which they can choose the specific figure they want to reproduce.  
 
 ### Installation
 
-Provide code examples and explanations of how to get the project.
+*Provide code examples and explanations of how to get the project.*
 
 ### API Reference
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+*Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.*
 
 ### Tests
 
-Describe and show how to run the tests with code examples.
+*Describe and show how to run the tests with code examples.*
 
 ### Contributors
 
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
+*Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.*
 
     Megan Guidry
     Auckland Bioengineering Institute
@@ -44,4 +44,4 @@ Let people know how they can dive into the project, include important links to t
 
 ### License
 
-A short snippet describing the license (MIT, Apache, etc.)
+*A short snippet describing the license (MIT, Apache, etc.)*
