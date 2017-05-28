@@ -16,6 +16,8 @@ Show what the library does as concisely as possible, developers should be able t
 4) The project will grab necessary output data from the .csv file and create variables
 5) These variables (time, force, sarcomere length, etc...) will then be plotted (in python)
 
+The plots created are intended to look precisely like the figures from the journal article; however, the python code can be adjusted to plot other variables.
+
 ### Motivation
 
 This project gives the readers of _____ access to the models and data analysed in the article as well as an easy to follow interface in which they can choose the specific figure they want to reproduce.  
