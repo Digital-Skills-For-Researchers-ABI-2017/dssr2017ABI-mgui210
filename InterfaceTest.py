@@ -20,8 +20,9 @@ class figureCreate:
         
 
 def main():
-    Figure_1 = figureCreate(1, "Main", "XB", "Ca2", ["xdata1", "xdata2", "xdata3"], ["ydata1", "ydata2", "ydata3"])
-    print(Figure_1.xVariables[2])
+    Figures = []
+    Figures.append(figureCreate(1, "Main", "XB", "Ca2", ["xdata1", "xdata2", "xdata3"], ["ydata1", "ydata2", "ydata3"]))
+    print(Figures[0])
 
     #Depending on the number of figures ("x"), there will be x number of "Figure_x" objects 
 
@@ -30,8 +31,8 @@ def main():
     #A mechanism will be developed that grabs the appropriate models and runs them on hpc
     #based on what figure (Figure_1, Figure_2, etc...) the user wants to replicate.
 
-    userInput = input("Please type the Figure number you wish to reproduce: ")
-    fig2Reproduce = "Figure_" + userInput
+    userInput = int(input("Please type the Figure number you wish to reproduce: "))
+    fig2Reproduce =  Figures[userInput-1]
     print("Reproducing " + fig2Reproduce + ", please wait")
 
     #Run the MeganModel
@@ -39,7 +40,7 @@ def main():
     #Create the .csv output data file (this could happen in the protocol .py document itself?)
 
     #Plot the figure!
-    lengthData = len(Figure_1.xVariables)
+    lengthData = len(fig2Reproduce.xVariables)
     print(lengthData)
 
     
