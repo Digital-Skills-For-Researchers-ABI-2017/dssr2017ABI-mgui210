@@ -22,7 +22,7 @@ class figureCreate:
 
 def main():
     Figures = []
-    Figures.append(figureCreate(1, "Main", "XB", "Ca2", ["xdata1", "xdata2", "xdata3"], ["ydata1", "ydata2", "ydata3"]))
+    Figures.append(figureCreate(1, "Main", "XB", "Ca2", ["xdata1", "xdata2", "xdata3"], ["ydata1", "ydata2", "ydata3"], "D"))
     Figures[1 - 1].afterloads = [0.12, 0.15, 0.2]
     Figures[1 - 1].sarcomereLengths = [1.9359, 2.0139, 2.1054]
     
@@ -37,8 +37,7 @@ def main():
     userInput = int(input("Please type the Figure number you wish to reproduce: "))
     fig2Reproduce =  Figures[userInput-1]
     figureNumber = "Figure" + str(userInput)
-    print(figureNumber)
-    print("Reproducing " + "Figure " + str(userInput) + ", please wait")
+    print("Reproducing " + "Figure " + str(userInput) + ", please wait...")
 
     #Run the MeganModel
 
@@ -54,11 +53,16 @@ def main():
         
         # 5) I also need to know the .CSV columns that hold the data.  This information is saved in an object attribute
 
-    for i in range(len(fig2Reproduce.afterloads)):
-        dataFile = figureNumber + "_ForD" + "_" + "_contractionType" + str(fig2Reproduce.afterloads[i])
-        
+    #How to determine whether a createFigureobject has a .aftreload attribute (indicating work-loops), a .sarcomereLengths attribute (indicating Isometric contractions), or both
+    TorF_WL = hasattr(fig2Reproduce, "afterloads")
+    TorF_Iso = hasattr(fig2Reproduce, "sarcomereLengths")
+    
+    if TorF_WL == True:
+        for i in range(len(fig2Reproduce.afterloads)):
+            dataFile = figureNumber + "_" + str(fig2Reproduce.ca2Type) + "_" + "contractionType" + str(fig2Reproduce.afterloads[i])
+            print(dataFile)
             
-    print(dataFile)
+    
         
     #Plot the figure!
     lengthData = len(fig2Reproduce.xVariables)
