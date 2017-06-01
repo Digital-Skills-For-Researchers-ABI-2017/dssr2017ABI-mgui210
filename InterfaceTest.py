@@ -7,7 +7,7 @@
 #   3) The specific cross-bridge model that the main model requires
 #   4) The specific Ca2+ model that the main model requires
 
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 class figureCreate:
     def __init__(self, figureNumber, mainModel, xbModel, ca2Model, xVariables, yVariables):
@@ -22,7 +22,7 @@ class figureCreate:
 def main():
     Figures = []
     Figures.append(figureCreate(1, "Main", "XB", "Ca2", ["xdata1", "xdata2", "xdata3"], ["ydata1", "ydata2", "ydata3"]))
-    print(Figures[0])
+    Figures[1 - 1].afterloads = [0.12, 0.15, 0.2]
 
     #Depending on the number of figures ("x"), there will be x number of "Figure_x" objects 
 
@@ -38,6 +38,12 @@ def main():
     #Run the MeganModel
 
     #Create the .csv output data file (this could happen in the protocol .py document itself?)
+
+    #Identify which file to access (which file has the data you need) based on an object attribute
+        #I need to know:
+        # 1) the filename(s)
+        # 2) What data columns contain the data
+    
 
     #Plot the figure!
     lengthData = len(fig2Reproduce.xVariables)
