@@ -33,7 +33,7 @@ def main():
 
     userInput = int(input("Please type the Figure number you wish to reproduce: "))
     fig2Reproduce =  Figures[userInput-1]
-    print("Reproducing " + fig2Reproduce + ", please wait")
+    print("Reproducing " + "Figure " + str(userInput) + ", please wait")
 
     #Run the MeganModel
 
@@ -46,6 +46,12 @@ def main():
     
     #data2Plot = 
     #plt.plot(
+    plt.plot([0.76,0.79,0.85,0.9], [1,17,30,40], ':')
+    # 'o', '--', ':', '-.'
+    plt.axis([0.75, 1, 0, 60])
+    plt.ylabel('Normalised Force')
+    plt.xlabel('Sarcomere Length (um)')
+    plt.show()
 
 if __name__ == "__main__":
     main()
