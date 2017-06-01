@@ -10,15 +10,14 @@
 import matplotlib.pyplot as plt
 
 class figureCreate:
-    def __init__(self, figureNumber, mainModel, xbModel, ca2Model, xVariables, yVariables, contractionType, ca2Type):
+    def __init__(self, figureNumber, mainModel, xbModel, ca2Model, xVariables, yVariables, ca2Type):
         self.figureNumber = figureNumber #This is an integer value
         self.mainModel = mainModel #This is a cellml file
         self.xbModel = xbModel #This is a cellml file
         self.ca2Model = ca2Model #This is a cellml file
         self.xVariables = xVariables #This is the CSV column title(s) (e.g. [A, A])
         self.yVariables = yVariables #This is the CSV column title(s) (e.g. [B, D])
-        self.contractionType = contractionType # This could be work-loop (WL), Isometric (Iso), or quick-release (QR)
-        self.ca2Type = ca2Type #This is either fixed (F) or dynamic (D)
+        self.ca2Type = ca2Type #This is either fixed (F) or Dynamic (D)
         
 
 def main():
@@ -48,15 +47,15 @@ def main():
     #Identify which file to access (which file has the data you need) based on an objects attributes and the matching filename
         #To grab the correct file from the Output folder, I need to know:
         # 1) the figureNumber
-        # 2) the contraction type (e.g. WL, Iso, QR) --> this comes from the Model version run
-        # 3) Fixed or dynamic [Ca2+]i (e.g. F, D) --> this also comes from the model version run
+        # 2) Fixed or dynamic [Ca2+]i (e.g. F, D) --> this also comes from the model version run
+        # 3) the contraction type (e.g. WL, Iso, QR) --> this comes from the Model version run
         # 4) The afterload value or sarcomere length(e.g. 0.15)
         # ^ THIS IS THE NAMING CONVENTION FOR THE DATA PRODUCED BY THIS CODE
         
         # 5) I also need to know the .CSV columns that hold the data.  This information is saved in an object attribute
 
     for i in range(len(fig2Reproduce.afterloads)):
-        dataFile = figureNumber + "_contractionType" + "_ForD" + "_" + str(fig2Reproduce.afterloads[i])
+        dataFile = figureNumber + "_ForD" + "_" + "_contractionType" + str(fig2Reproduce.afterloads[i])
         
             
     print(dataFile)
