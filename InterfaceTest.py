@@ -23,6 +23,8 @@ def main():
     Figures = []
     Figures.append(figureCreate(1, "Main", "XB", "Ca2", ["xdata1", "xdata2", "xdata3"], ["ydata1", "ydata2", "ydata3"]))
     Figures[1 - 1].afterloads = [0.12, 0.15, 0.2]
+    Figures[1 - 1].sarcomereLengths = [1.9359, 2.0139, 2.1054]
+    
 
     #Depending on the number of figures ("x"), there will be x number of "Figure_x" objects 
 
@@ -33,18 +35,29 @@ def main():
 
     userInput = int(input("Please type the Figure number you wish to reproduce: "))
     fig2Reproduce =  Figures[userInput-1]
+    figureNumber = "Figure" + str(userInput)
+    print(figureNumber)
     print("Reproducing " + "Figure " + str(userInput) + ", please wait")
 
     #Run the MeganModel
 
     #Create the .csv output data file (this could happen in the protocol .py document itself?)
 
-    #Identify which file to access (which file has the data you need) based on an object attribute
-        #I need to know:
-        # 1) the filename(s)
-        # 2) What data columns contain the data
-    
+    #Identify which file to access (which file has the data you need) based on an objects attributes and the matching filename
+        #To grab the correct file from the Output folder, I need to know:
+        # 1) the figureNumber
+        # 2) the contraction type (e.g. WL, Iso, QR)
+        # 3) Fixed or dynamic [Ca2+]i (e.g. F, D)
+        # 4) The afterload value or sarcomere length(e.g. 0.15)
+        # ^ THIS IS THE NAMING CONVENTION FOR THE DATA PRODUCED BY THIS CODE
+        
+        # 5) I also need to know the .CSV columns that hold the data.  This information is saved in an object attribute
 
+    for i in range(len(fig2Reproduce.afterloads)):
+        dataFile = figureNumber + "_contractionType" + "_ForD" + "_" + str(fig2Reproduce.afterloads[i])
+            
+    print(dataFile)
+        
     #Plot the figure!
     lengthData = len(fig2Reproduce.xVariables)
     print(lengthData)
