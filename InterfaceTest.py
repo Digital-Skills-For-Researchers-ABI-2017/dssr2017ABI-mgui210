@@ -7,7 +7,10 @@
 #   3) The specific cross-bridge model that the main model requires
 #   4) The specific Ca2+ model that the main model requires
 
+import numpy as np
 import matplotlib.pyplot as plt
+import csv
+import os
 
 class figureCreate:
     def __init__(self, figureNumber, mainModel, xbModel, ca2Model, xVariables, yVariables, ca2Type):
@@ -59,9 +62,29 @@ def main():
     
     if TorF_WL == True:
         for i in range(len(fig2Reproduce.afterloads)):
-            dataFile = figureNumber + "_" + str(fig2Reproduce.ca2Type) + "_" + "contractionType" + str(fig2Reproduce.afterloads[i])
-            print(dataFile)
-            
+            outputDataFiles = os.listdir("Test_Output")
+            dataFile = figureNumber + "_" + str(fig2Reproduce.ca2Type) + "_" + "WL" + str(fig2Reproduce.afterloads[i]) + ".CSV"
+            outputDataPath = os.path.join("Test_Output", dataFile)
+            print(outputDataPath)
+
+            xData = []
+            yData = []
+            with open(outputDataPath, 'r') as csvfile:
+                plots = csv.reader(csvfile, delimiter=',')
+                next(plots, None) #Skip the header line
+                for row in plots:
+                    xData.append(float(row[1])/2.3)
+                    yData.append(float(row[3]))
+
+            plt.plot(xData, yData, label='Loaded from file!')
+            plt.axis([0.75, 1, 0, 0.5])
+        plt.show()
+                    
+
+    if TorF_Iso == True:
+        for i in range(len(fig2Reproduce.afterloads)):
+            #ataFile = Test_Output\ figureNumber + "_" + str(fig2Reproduce.ca2Type) + "_" + "Iso" + str(fig2Reproduce.sarcomereLengths[i]) + ".CSV"
+            print("test")
     
         
     #Plot the figure!
@@ -71,12 +94,12 @@ def main():
     
     #data2Plot = 
     #plt.plot(
-    plt.plot([0.76,0.79,0.85,0.9], [1,17,30,40], ':')
-    # 'o', '--', ':', '-.'
-    plt.axis([0.75, 1, 0, 60])
-    plt.ylabel('Normalised Force')
-    plt.xlabel('Sarcomere Length (um)')
-    plt.show()
+##    plt.plot([0.76,0.79,0.85,0.9], [1,17,30,40], ':')
+##    # 'o', '--', ':', '-.'
+##    plt.axis([0.75, 1, 0, 60])
+##    plt.ylabel('Normalised Force')
+##    plt.xlabel('Sarcomere Length (um)')
+##    plt.show()
 
 if __name__ == "__main__":
     main()
