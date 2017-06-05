@@ -11,6 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 import os
+import itertools
 
 class figureCreate:
     def __init__(self, figureNumber, mainModel, xbModel, ca2Model, xVariables, yVariables, ca2Type):
@@ -72,13 +73,19 @@ def main():
             with open(outputDataPath, 'r') as csvfile:
                 plots = csv.reader(csvfile, delimiter=',')
                 next(plots, None) #Skip the header line
+                #for row in islice(plots, 542859, 571430, None):
                 for row in plots:
                     xData.append(float(row[1])/2.3)
                     yData.append(float(row[3]))
 
             plt.plot(xData, yData, label='Loaded from file!')
-            plt.axis([0.75, 1, 0, 0.5])
-        plt.show()
+
+        #Plotting the figure:   
+        plt.xlabel("Normalised Sarcomere Length")
+        plt.ylabel("Normalised Total Force")
+        plt.title(figureNumber)
+        plt.axis([0.75, 1, 0, 0.5])
+        plt.show() #plt.show is place after the loop so that all data plotted in the loop will show on one figure
                     
 
     if TorF_Iso == True:
