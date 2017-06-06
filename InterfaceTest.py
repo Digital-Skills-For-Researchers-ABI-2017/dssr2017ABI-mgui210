@@ -14,7 +14,7 @@ import os
 import itertools
 
 class figureCreate:
-    def __init__(self, figureNumber, mainModel, xbModel, ca2Model, xVariables, yVariables, ca2Type):
+    def __init__(self, figureNumber, mainModel, xbModel, ca2Model, xVariables, yVariables, ca2Type, caption):
         self.figureNumber = figureNumber #This is an integer value
         self.mainModel = mainModel #This is a cellml file
         self.xbModel = xbModel #This is a cellml file
@@ -22,11 +22,12 @@ class figureCreate:
         self.xVariables = xVariables #This is the CSV column title(s) (e.g. [A, A])
         self.yVariables = yVariables #This is the CSV column title(s) (e.g. [B, D])
         self.ca2Type = ca2Type #This is either fixed (F) or Dynamic (D)
+        self.caption = caption
         
 
 def main():
     Figures = []
-    Figures.append(figureCreate(1, "Main", "XB", "Ca2", ["xdata1", "xdata2", "xdata3"], ["ydata1", "ydata2", "ydata3"], "D"))
+    Figures.append(figureCreate(1, "Main", "XB", "Ca2", ["xdata1", "xdata2", "xdata3"], ["ydata1", "ydata2", "ydata3"], "D", "In this figure, work-loop contractions at differing afterlaods and isometric contractions at different sarcomere lengths, are performed"))
     Figures[1 - 1].afterloads = [0.12, 0.15, 0.2]
     Figures[1 - 1].sarcomereLengths = [1.9359, 2.0139, 2.1054]
     
@@ -85,7 +86,8 @@ def main():
         plt.ylabel("Normalised Total Force")
         plt.title(figureNumber)
         plt.axis([0.75, 1, 0, 0.5])
-        plt.show() #plt.show is place after the loop so that all data plotted in the loop will show on one figure
+        plt.text(.1,.1,fig2Reproduce.caption)
+        F = plt.show() #plt.show is place after the loop so that all data plotted in the loop will show on one figure
                     
 
     if TorF_Iso == True:
