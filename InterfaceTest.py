@@ -77,7 +77,6 @@ def main():
             
             testConnectionPath = os.path.join("modelVersions", "testConnection.py")
             print(testConnectionPath)
-            dataFile = 5
             exec(open(testConnectionPath).read()) #This line executes a python file located in the modelVersions folder.  
 
             xData = []
