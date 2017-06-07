@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import csv
 import os
 import itertools
+import sys
 
 class figureCreate:
     def __init__(self, figureNumber, mainModel, xbModel, ca2Model, xVariables, yVariables, ca2Type, caption):
@@ -44,7 +45,6 @@ def main():
     figureNumber = "Figure" + str(userInput) 
     print("Reproducing " + "Figure " + str(userInput) + ", please wait...")
 
-#Run the MeganModel
 
 #Create the .csv output data file name (based on object attributes)  This Filename, called dataFile, will be imported into the protocol code.
 
@@ -69,7 +69,16 @@ def main():
             dataFile = figureNumber + "_" + str(fig2Reproduce.ca2Type) + "_" + "WL" + str(fig2Reproduce.afterloads[i]) + ".CSV"
             #Determine the path to the "Test_Output" folder so that we know where to look for the output data once it is created:
             outputDataPath = os.path.join("Test_Output", dataFile)
-            print("Creating file: " + outputDataPath)
+            print("Creating file: " + dataFile)
+            
+
+            #Run the MeganModel (A simulation needs to be run for each iteration of the for loop)
+            modelVersionsFile = os.listdir("modelVersions")
+            
+            testConnectionPath = os.path.join("modelVersions", "testConnection.py")
+            print(testConnectionPath)
+            dataFile = 5
+            exec(open(testConnectionPath).read()) #This line executes a python file located in the modelVersions folder.  
 
             xData = []
             yData = []
