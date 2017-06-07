@@ -26,48 +26,50 @@ class figureCreate:
         
 
 def main():
+    #The "Figures" array contains a figureCreate object for each figure in the Manuscript
     Figures = []
     Figures.append(figureCreate(1, "Main", "XB", "Ca2", ["xdata1", "xdata2", "xdata3"], ["ydata1", "ydata2", "ydata3"], "D", "In this figure, work-loop contractions at differing afterlaods and isometric contractions at different sarcomere lengths, are performed"))
     Figures[1 - 1].afterloads = [0.12, 0.15, 0.2]
     Figures[1 - 1].sarcomereLengths = [1.9359, 2.0139, 2.1054]
-    
-
-    #Depending on the number of figures ("x"), there will be x number of "Figure_x" objects 
 
 
-    #Once each Figure from article ____ has a corresponding object of the class figureCreate,
-    #A mechanism will be developed that grabs the appropriate models and runs them on hpc
-    #based on what figure (Figure_1, Figure_2, etc...) the user wants to replicate.
+###################################################################################################################
+######This next chunk of code grabs the appropriate models (based on the user input) and runs them on hpc.#########
+    #The model version run is based on what figure (Figure_1, Figure_2, etc...) the user wants to replicate.
 
+
+    #Creating a pointer to the proper figureCreate object based on user input
     userInput = int(input("Please type the Figure number you wish to reproduce: "))
-    fig2Reproduce =  Figures[userInput-1]
-    figureNumber = "Figure" + str(userInput)
+    fig2Reproduce =  Figures[userInput-1] #fig2Reproduce is the figureCreate object the code whose attributes include the model names and data values needed to recreate the specific figure 
+    figureNumber = "Figure" + str(userInput) 
     print("Reproducing " + "Figure " + str(userInput) + ", please wait...")
 
-    #Run the MeganModel
+#Run the MeganModel
 
-    #Create the .csv output data file (this could happen in the protocol .py document itself?)
+#Create the .csv output data file name (based on object attributes)  This Filename, called dataFile, will be imported into the protocol code.
 
-    #Identify which file to access (which file has the data you need) based on an objects attributes and the matching filename
+    #NAMING CONVENTION: Identify which file to access (which file has the data you need) based on an objects attributes and the matching filename
         #To grab the correct file from the Output folder, I need to know:
         # 1) the figureNumber
         # 2) Fixed or dynamic [Ca2+]i (e.g. F, D) --> this also comes from the model version run
         # 3) the contraction type (e.g. WL, Iso, QR) --> this comes from the Model version run
         # 4) The afterload value or sarcomere length(e.g. 0.15)
-        # ^ THIS IS THE NAMING CONVENTION FOR THE DATA PRODUCED BY THIS CODE
         
         # 5) I also need to know the .CSV columns that hold the data.  This information is saved in an object attribute
 
     #How to determine whether a createFigureobject has a .aftreload attribute (indicating work-loops), a .sarcomereLengths attribute (indicating Isometric contractions), or both
     TorF_WL = hasattr(fig2Reproduce, "afterloads")
     TorF_Iso = hasattr(fig2Reproduce, "sarcomereLengths")
-    
+
+
     if TorF_WL == True:
         for i in range(len(fig2Reproduce.afterloads)):
             outputDataFiles = os.listdir("Test_Output")
+            #Create the .csv output data file name (based on object attributes):
             dataFile = figureNumber + "_" + str(fig2Reproduce.ca2Type) + "_" + "WL" + str(fig2Reproduce.afterloads[i]) + ".CSV"
+            #Determine the path to the "Test_Output" folder so that we know where to look for the output data once it is created:
             outputDataPath = os.path.join("Test_Output", dataFile)
-            print(outputDataPath)
+            print("Creating file: " + outputDataPath)
 
             xData = []
             yData = []
