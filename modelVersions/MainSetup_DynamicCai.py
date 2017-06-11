@@ -6,7 +6,7 @@ print range(len(preset_afterloads))
 count = 0
 
 while count < len(preset_afterloads):
-    
+
     value_afterload = preset_afterloads[count-1]
     user_number = count + 1
     execfile(r'WLprotocolDynamicCai.py')
