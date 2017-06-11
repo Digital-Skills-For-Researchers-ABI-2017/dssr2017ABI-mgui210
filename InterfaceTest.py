@@ -74,7 +74,6 @@ def main():
 
             #Run the MeganModel (A simulation needs to be run for each iteration of the for loop)
             modelVersionsFile = os.listdir("modelVersions")
-            
             testConnectionPath = os.path.join("modelVersions", "testConnection.py")
             print(testConnectionPath)
             exec(open(testConnectionPath).read()) #This line executes a python file located in the modelVersions folder.  
