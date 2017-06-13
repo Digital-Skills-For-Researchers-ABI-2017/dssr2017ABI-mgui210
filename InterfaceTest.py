@@ -67,9 +67,20 @@ def main():
 
 
     #Creating a pointer to the proper figureCreate object based on user input
-    
-    userInput = int(input("Please type the Figure number you wish to reproduce: "))
-    fig2Reproduce =  Figures[userInput-1] #fig2Reproduce is the figureCreate object the code whose attributes include the model names and data values needed to recreate the specific figure 
+
+    def check_userInput(typed_input):
+        try:
+            typed_input = int(typed_input)
+            return True
+        except ValueError:
+            print("Error: You have not input an integer value")
+            return False
+
+    userInput = input("Please enter the figure number you want to reproduce: ")
+
+    check_userInput(userInput)
+        
+    fig2Reproduce =  Figures[int(userInput)-1] #fig2Reproduce is the figureCreate object the code whose attributes include the model names and data values needed to recreate the specific figure 
     figureNumber = "Figure" + str(userInput) 
     print("Reproducing " + "Figure " + str(userInput) + ", please wait...")
 
