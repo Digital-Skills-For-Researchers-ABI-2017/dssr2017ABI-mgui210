@@ -24,7 +24,34 @@ class figureCreate:
         self.yVariables = yVariables #This is the CSV column title(s) (e.g. [B, D])
         self.ca2Type = ca2Type #This is either fixed (F) or Dynamic (D)
         self.caption = caption
+
+def run_and_plot(figureNumber, fig2Reproduce, contractionType, contractionTypeValues, numberOfFiles):
+    for i in range(numberOfFiles):
+        outputDataFiles = os.listdir("Test_Output")
+        #Create the .csv output data file name (based on object attributes):
+        dataFile = figureNumber + "_" + str(fig2Reproduce.ca2Type) + "_" + contractionType + str(contractionTypeValues[i]) + ".CSV"
+        #Determine the path to the "Test_Output" folder so that we know where to look for the output data once it is created:
+        outputDataPath = os.path.join("Test_Output", dataFile)
+        print("Creating file: " + dataFile)
         
+
+        #Run the MeganModel (A simulation needs to be run for each iteration of the for loop)
+        modelVersionsFile = os.listdir("modelVersions")
+        testConnectionPath = os.path.join("modelVersions", "testConnection.py")
+        print(testConnectionPath)
+        exec(open(testConnectionPath).read()) #This line executes a python file located in the modelVersions folder.  
+
+        xData = []
+        yData = []
+        with open(outputDataPath, 'r') as csvfile:
+            plots = csv.reader(csvfile, delimiter=',')
+            next(plots, None) #Skip the header line
+            #for row in islice(plots, 542859, 571430, None):
+            for row in plots:
+                xData.append(float(row[1])/2.3)
+                yData.append(float(row[3]))
+
+        plt.plot(xData, yData, label='Loaded from file!')        
 
 def main():
     #The "Figures" array contains a figureCreate object for each figure in the Manuscript
@@ -40,6 +67,7 @@ def main():
 
 
     #Creating a pointer to the proper figureCreate object based on user input
+    
     userInput = int(input("Please type the Figure number you wish to reproduce: "))
     fig2Reproduce =  Figures[userInput-1] #fig2Reproduce is the figureCreate object the code whose attributes include the model names and data values needed to recreate the specific figure 
     figureNumber = "Figure" + str(userInput) 
@@ -63,61 +91,28 @@ def main():
 
 
     if TorF_WL == True:
-        for i in range(len(fig2Reproduce.afterloads)):
-            outputDataFiles = os.listdir("Test_Output")
-            #Create the .csv output data file name (based on object attributes):
-            dataFile = figureNumber + "_" + str(fig2Reproduce.ca2Type) + "_" + "WL" + str(fig2Reproduce.afterloads[i]) + ".CSV"
-            #Determine the path to the "Test_Output" folder so that we know where to look for the output data once it is created:
-            outputDataPath = os.path.join("Test_Output", dataFile)
-            print("Creating file: " + dataFile)
-            
-
-            #Run the MeganModel (A simulation needs to be run for each iteration of the for loop)
-            modelVersionsFile = os.listdir("modelVersions")
-            testConnectionPath = os.path.join("modelVersions", "testConnection.py")
-            print(testConnectionPath)
-            exec(open(testConnectionPath).read()) #This line executes a python file located in the modelVersions folder.  
-
-            xData = []
-            yData = []
-            with open(outputDataPath, 'r') as csvfile:
-                plots = csv.reader(csvfile, delimiter=',')
-                next(plots, None) #Skip the header line
-                #for row in islice(plots, 542859, 571430, None):
-                for row in plots:
-                    xData.append(float(row[1])/2.3)
-                    yData.append(float(row[3]))
-
-            plt.plot(xData, yData, label='Loaded from file!')
-
-        #Plotting the figure:   
-        plt.xlabel("Normalised Sarcomere Length")
-        plt.ylabel("Normalised Total Force")
-        plt.title(figureNumber)
-        plt.axis([0.75, 1, 0, 0.5])
-        plt.text(.1,.1,fig2Reproduce.caption)
-        F = plt.show() #plt.show is place after the loop so that all data plotted in the loop will show on one figure
-                    
-
-    if TorF_Iso == True:
-        for i in range(len(fig2Reproduce.afterloads)):
-            #ataFile = Test_Output\ figureNumber + "_" + str(fig2Reproduce.ca2Type) + "_" + "Iso" + str(fig2Reproduce.sarcomereLengths[i]) + ".CSV"
-            print("test")
-    
+        contractionType = "WL"
+        contractionTypeValues = fig2Reproduce.afterloads
+        numberOfFiles = len(contractionTypeValues)
         
-    #Plot the figure!
-    lengthData = len(fig2Reproduce.xVariables)
-    print(lengthData)
+        run_and_plot(figureNumber, fig2Reproduce, contractionType, contractionTypeValues, numberOfFiles)
+        
+    elif TorF_Iso == True:
+        contractionType = "Iso"
+        contractionTypeValues = fig2Reproduce.sarcomereLengths
+        numberOfFiles = len(contractionTypeValues)
 
+        run_and_plot(figureNumber, fig2Reproduce, contractionType, contractionTypeValues, numberOfFiles)
+
+
+    #Formatting and displaying the figure:   
+    plt.xlabel("Normalised Sarcomere Length")
+    plt.ylabel("Normalised Total Force")
+    plt.title(figureNumber)
+    plt.axis([0.75, 1, 0, 0.5])
+    plt.text(.1,.1,fig2Reproduce.caption)
+    F = plt.show() #plt.show is place after the loop so that all data plotted in the loop will show on one figure
     
-    #data2Plot = 
-    #plt.plot(
-##    plt.plot([0.76,0.79,0.85,0.9], [1,17,30,40], ':')
-##    # 'o', '--', ':', '-.'
-##    plt.axis([0.75, 1, 0, 60])
-##    plt.ylabel('Normalised Force')
-##    plt.xlabel('Sarcomere Length (um)')
-##    plt.show()
 
 if __name__ == "__main__":
     main()
